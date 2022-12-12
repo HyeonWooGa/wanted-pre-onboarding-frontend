@@ -1,37 +1,22 @@
 import axios from "axios";
-import { MouseEvent, useEffect, useState } from "react";
+import { Dispatch, FunctionComponent, SetStateAction, useState } from "react";
+import { ITodo } from "../pages/Todo";
 
 const baseUrl = process.env.REACT_APP_BASE_URL;
 
-interface ITodo {
-  id: number;
-  todo: string;
-  isCompleted: boolean;
-  userId: number;
+interface IListTodos {
+  todos: ITodo[] | null;
+  setDoRendering: Dispatch<SetStateAction<boolean>>;
 }
 
-export const ListTodos = () => {
-  const [todos, setTodos] = useState<ITodo[] | null>(null);
+export const ListTodos: FunctionComponent<IListTodos> = ({
+  todos,
+  setDoRendering,
+}) => {
   const [isEditing, setIsEditing] = useState(false);
   const [editTodoId, setEditTodoId] = useState(0);
   const [editTodo, setEditTodo] = useState("");
   const [editIsCompleted, setEditIsCompleted] = useState(false);
-  const [doRendering, setDoRendering] = useState(false);
-  const getTodos = async () => {
-    try {
-      const res = await axios.get(baseUrl + "/todos", {
-        headers: {
-          Authorization: `Bearer ${localStorage.getItem("access_token")}`,
-        },
-      });
-      setTodos(res.data);
-    } catch (error) {
-      console.error(error);
-    }
-  };
-  useEffect(() => {
-    getTodos();
-  }, [doRendering]);
   const onClickEdit = (todo: ITodo) => {
     setIsEditing(true);
     setEditTodoId(todo.id);
@@ -65,6 +50,7 @@ export const ListTodos = () => {
       setEditIsCompleted(false);
       setDoRendering((prev) => !prev);
     } catch (error) {
+      alert("할 일 수정에 실패했습니다 다시 시도해주세요");
       console.error(error);
     }
   };
@@ -88,6 +74,7 @@ export const ListTodos = () => {
         setEditIsCompleted(!todo.isCompleted);
         setDoRendering((prev) => !prev);
       } catch (error) {
+        alert("오류가 발생했습니다 다시 시도해주세요");
         console.error(error);
       }
     }
@@ -112,6 +99,22 @@ export const ListTodos = () => {
         setEditIsCompleted(!todo.isCompleted);
         setDoRendering((prev) => !prev);
       } catch (error) {
+        alert("오류가 발생했습니다 다시 시도해주세요");
+        console.error(error);
+      }
+    }
+  };
+  const onClickDelete = async (todo: ITodo) => {
+    if (window.confirm("정말 삭제하시겠습니까?")) {
+      try {
+        await axios.delete(baseUrl + `/todos/${todo.id}`, {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("access_token")}`,
+          },
+        });
+        setDoRendering((prev) => !prev);
+      } catch (error) {
+        alert("할 일 삭제에 실패했습니다 다시 시도해주세요");
         console.error(error);
       }
     }
@@ -119,11 +122,13 @@ export const ListTodos = () => {
   return (
     <>
       {isEditing ? (
-        <div className="w-[720px] border">
+        <div className="w-[720px]">
           {todos?.map((todo) => (
             <div
               key={todo.id}
-              className="bg-slate-400 rounded-2xl p-4 flex justify-between items-center mb-4"
+              className={`${
+                todo.isCompleted ? "bg-slate-200" : "bg-slate-400"
+              } rounded-2xl p-4 flex justify-between items-center mb-4`}
             >
               {editTodoId === todo.id ? (
                 <>
@@ -138,13 +143,15 @@ export const ListTodos = () => {
                     ) : (
                       <button
                         onClick={() => onClickTodo(todo)}
-                        className="border border-black rounded-lg p-1 hover:bg-white"
+                        className="border border-black rounded-lg p-1 bg-white hover:bg-transparent"
                       >
-                        할것
+                        할일
                       </button>
                     )}
                     <input
-                      className={todo.isCompleted ? "line-through" : ""}
+                      className={`${
+                        todo.isCompleted ? "line-through" : ""
+                      } w-[300px]`}
                       value={editTodo}
                       onChange={(event) => setEditTodo(event.target.value)}
                     />
@@ -152,13 +159,13 @@ export const ListTodos = () => {
                   <div className="flex gap-2 items-center">
                     <button
                       onClick={onClickSubmitEdit}
-                      className="border border-black rounded-lg p-1 hover:bg-white"
+                      className="border border-black rounded-lg p-1 bg-white hover:bg-transparent"
                     >
                       제출
                     </button>
                     <button
                       onClick={onClickCancleEdit}
-                      className="border border-black rounded-lg p-1 hover:bg-white"
+                      className="border border-black rounded-lg p-1 bg-white hover:bg-transparent"
                     >
                       취소
                     </button>
@@ -177,9 +184,9 @@ export const ListTodos = () => {
                     ) : (
                       <button
                         onClick={() => onClickTodo(todo)}
-                        className="border border-black rounded-lg p-1 hover:bg-white"
+                        className="border border-black rounded-lg p-1 bg-white hover:bg-transparent"
                       >
-                        할것
+                        할일
                       </button>
                     )}
                     <span className={todo.isCompleted ? "line-through" : ""}>
@@ -189,11 +196,14 @@ export const ListTodos = () => {
                   <div className="flex gap-2 items-center">
                     <button
                       onClick={() => onClickEdit(todo)}
-                      className="border border-black rounded-lg p-1 hover:bg-white"
+                      className="border border-black rounded-lg p-1 bg-white hover:bg-transparent"
                     >
                       수정
                     </button>
-                    <button className="border border-black rounded-lg p-1 hover:bg-white">
+                    <button
+                      onClick={() => onClickDelete(todo)}
+                      className="border border-black rounded-lg p-1 bg-white hover:bg-transparent"
+                    >
                       삭제
                     </button>
                   </div>
@@ -203,11 +213,13 @@ export const ListTodos = () => {
           ))}
         </div>
       ) : (
-        <div className="w-[720px] border">
+        <div className="w-[720px]">
           {todos?.map((todo) => (
             <div
               key={todo.id}
-              className="bg-slate-400 rounded-2xl p-4 flex justify-between items-center mb-4"
+              className={`${
+                todo.isCompleted ? "bg-slate-200" : "bg-slate-400"
+              } rounded-2xl p-4 flex justify-between items-center mb-4`}
             >
               <div className="flex gap-2 items-center">
                 {todo.isCompleted ? (
@@ -220,9 +232,9 @@ export const ListTodos = () => {
                 ) : (
                   <button
                     onClick={() => onClickTodo(todo)}
-                    className="border border-black rounded-lg p-1 hover:bg-white"
+                    className="border border-black rounded-lg p-1 bg-white hover:bg-transparent"
                   >
-                    할것
+                    할일
                   </button>
                 )}
                 <span className={todo.isCompleted ? "line-through" : ""}>
@@ -232,11 +244,14 @@ export const ListTodos = () => {
               <div className="flex gap-2 items-center">
                 <button
                   onClick={() => onClickEdit(todo)}
-                  className="border border-black rounded-lg p-1 hover:bg-white"
+                  className="border border-black rounded-lg p-1 bg-white hover:bg-transparent"
                 >
                   수정
                 </button>
-                <button className="border border-black rounded-lg p-1 hover:bg-white">
+                <button
+                  onClick={() => onClickDelete(todo)}
+                  className="border border-black rounded-lg p-1 bg-white hover:bg-transparent"
+                >
                   삭제
                 </button>
               </div>
