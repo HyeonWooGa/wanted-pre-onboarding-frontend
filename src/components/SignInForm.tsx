@@ -11,25 +11,27 @@ export const SignInForm = () => {
   const navigate = useNavigate();
   const onSubmitSignUp = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    try {
-      const res = await axios.post(
-        baseUrl + "/auth/signin",
-        {
-          email,
-          password,
-        },
-        {
-          headers: {
-            "Content-Type": "application/json",
+    if (window.confirm("로그인 하시겠습니까?")) {
+      try {
+        const res = await axios.post(
+          baseUrl + "/auth/signin",
+          {
+            email,
+            password,
           },
-        }
-      );
-      localStorage.setItem("access_token", res.data.access_token);
-      localStorage.setItem("email", email);
-      navigate("/todo");
-    } catch (error) {
-      alert("오류가 발생했습니다 다시 시도해주세요");
-      console.error(error);
+          {
+            headers: {
+              "Content-Type": "application/json",
+            },
+          }
+        );
+        localStorage.setItem("access_token", res.data.access_token);
+        localStorage.setItem("email", email);
+        navigate("/todo");
+      } catch (error) {
+        alert("오류가 발생했습니다 다시 시도해주세요");
+        console.error(error);
+      }
     }
   };
   useEffect(() => {
