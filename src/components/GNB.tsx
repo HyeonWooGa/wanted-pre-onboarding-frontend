@@ -51,12 +51,22 @@ export const GNB = ({
           )}
         </li>
         <li>
-          <button
-            onClick={onClickTodo}
-            className={pathname === "/todo" ? "text-slate-200" : ""}
-          >
-            투두 리스트
-          </button>
+          {email ? (
+            <button
+              onClick={onClickTodo}
+              className={pathname === "/todo" ? "text-slate-200" : ""}
+            >
+              투두 리스트
+            </button>
+          ) : (
+            <button
+              disabled
+              onClick={onClickTodo}
+              className={pathname === "/todo" ? "text-slate-200" : ""}
+            >
+              투두 리스트
+            </button>
+          )}
         </li>
       </ul>
       <div className="flex gap-2 items-baseline">
