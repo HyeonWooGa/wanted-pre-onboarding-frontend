@@ -42,7 +42,7 @@ https://user-images.githubusercontent.com/101603474/207089876-be36d91a-ea6f-4c22
 - Assignment 5 (투두 리스트 수정, 삭제) ✅
 
 ### 추가 기능
-- Global Navigation Bar
-- 로그아웃
+- Global Navigation Bar ✅
+- 로그아웃 ✅
 
 ---
