@@ -1,7 +1,17 @@
+import { BrowserRouter, Route, Routes } from "react-router-dom";
 import "./App.css";
+import { Auth } from "./pages/Auth";
+import { Todo } from "./pages/Todo";
 
 function App() {
-  return <h1 className="text-yellow-400">Hello World</h1>;
+  return (
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<Auth />} />
+        <Route path="/todo" element={<Todo />} />
+      </Routes>
+    </BrowserRouter>
+  );
 }
 
 export default App;
