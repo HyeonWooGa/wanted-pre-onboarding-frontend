@@ -37,14 +37,14 @@ export const GNB = ({
             <button
               disabled
               onClick={onClickSignUp}
-              className={pathname === "/" && !hasSigned ? "text-slate-200" : ""}
+              className={pathname === "/" && !hasSigned ? "text-slate-400" : ""}
             >
               회원가입
             </button>
           ) : (
             <button
               onClick={onClickSignUp}
-              className={pathname === "/" && !hasSigned ? "text-slate-200" : ""}
+              className={pathname === "/" && !hasSigned ? "text-slate-400" : ""}
             >
               회원가입
             </button>
@@ -54,7 +54,7 @@ export const GNB = ({
           {email ? (
             <button
               onClick={onClickTodo}
-              className={pathname === "/todo" ? "text-slate-200" : ""}
+              className={pathname === "/todo" ? "text-slate-400" : ""}
             >
               투두 리스트
             </button>
@@ -62,7 +62,7 @@ export const GNB = ({
             <button
               disabled
               onClick={onClickTodo}
-              className={pathname === "/todo" ? "text-slate-200" : ""}
+              className={pathname === "/todo" ? "text-slate-400" : ""}
             >
               투두 리스트
             </button>
@@ -83,7 +83,7 @@ export const GNB = ({
               <button
                 onClick={onClickSignIn}
                 className={
-                  pathname === "/" && hasSigned ? "text-slate-200" : ""
+                  pathname === "/" && hasSigned ? "text-slate-400" : ""
                 }
               >
                 로그인 ＞

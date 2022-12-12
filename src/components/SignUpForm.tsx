@@ -28,6 +28,7 @@ export const SignUpForm = () => {
       localStorage.setItem("email", email);
       navigate("/todo");
     } catch (error) {
+      alert("오류가 발생했습니다 다시 시도해주세요");
       console.error(error);
     }
   };
@@ -64,7 +65,7 @@ export const SignUpForm = () => {
           />
         </div>
         {isVaild ? (
-          <button className="bg-slate-200 rounded-xl py-2">회원가입</button>
+          <button className="bg-slate-400 rounded-xl py-2">회원가입</button>
         ) : (
           <button className="bg-slate-200 rounded-xl py-2" disabled>
             회원가입
