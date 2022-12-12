@@ -1,46 +1,48 @@
-# Getting Started with Create React App
+# 원티드 프리온보딩 프론트엔드 인턴십 사전과제
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## 작성자
 
-## Available Scripts
+- @HyeonWooGa(박연우)
 
-In the project directory, you can run:
+---
 
-### `yarn start`
+## 배포
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+- [배포링크](https://wanted-pre-onboarding-frontend-hyeonwooga.vercel.app/) (Vercel)
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+---
 
-### `yarn test`
+## 기술 스택
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+- TypeScript
+- React
+- TailwindCSS
+- React-Router-Dom
 
-### `yarn build`
+---
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+## 프로젝트 실행 방법
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+- `$ yarn install`
+- `$ yarn start`
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+---
 
-### `yarn eject`
+## 데모 영상
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+https://user-images.githubusercontent.com/101603474/207089876-be36d91a-ea6f-4c22-bd85-170f5365dd3a.mov
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+### 로그인 / 회원가입
+- Assignment 1 (유효성 검사) ✅
+- Assignment 2 (로그인, 회원가입 API) ✅
+- Assignment 3 (로그인 여부에 리다이렉트) ✅
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+### 투두 리스트
+- Assignment 4 (투두 리스트 작성, 열람) ✅
+- Assignment 5 (투두 리스트 수정, 삭제) ✅
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+### 추가 기능
+- Global Navigation Bar
+- 로그아웃
 
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
+---
