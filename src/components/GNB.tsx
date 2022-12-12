@@ -22,8 +22,10 @@ export const GNB = ({
     navigate("/todo");
   };
   const onClickLogout = () => {
-    localStorage.clear();
-    navigate("/");
+    if (window.confirm("로그아웃 하시겠습니까?")) {
+      localStorage.clear();
+      navigate("/");
+    }
   };
   const onClickSignIn = () => {
     setHasSigned(true);
