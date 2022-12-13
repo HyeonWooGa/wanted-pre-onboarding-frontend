@@ -1,13 +1,18 @@
-import { useEffect, useState } from "react";
+import {
+  Dispatch,
+  FunctionComponent,
+  SetStateAction,
+  useEffect,
+  useState,
+} from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 
-export const GNB = ({
-  hasSigned,
-  setHasSigned,
-}: {
+interface IGNB {
   hasSigned: boolean;
-  setHasSigned: Function;
-}) => {
+  setHasSigned: Dispatch<SetStateAction<boolean>>;
+}
+
+export const GNB: FunctionComponent<IGNB> = ({ hasSigned, setHasSigned }) => {
   const [email, setEmail] = useState<string | null>(null);
   const navigate = useNavigate();
   const { pathname } = useLocation();
